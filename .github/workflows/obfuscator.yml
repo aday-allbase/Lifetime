@@ -1,32 +1,24 @@
-name: Obfuscate and Commit
+name: Obfuscate Code
 
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
-
+  push:
+    paths:
+      - "_worker.js"
 jobs:
-  obfuscate:
+  scanner:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
 
     steps:
       - uses: actions/checkout@v3
         with:
-          fetch-depth: 0
-
-      - name: Use Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: "16"
-
-      - name: Install dependencies
-        run: npm install -g javascript-obfuscator
-
-      - name: Obfuscate code
+          token: ${{ secrets.GIT_TOKEN }}
+      - name: Use Bun
+        uses: oven-sh/setup-bun@v2
+      - name: Obfuscate
         run: |
-          javascript-obfuscator index.js --output _worker.js \
+          bun install
+          bunx javascript-obfuscator index.js --output _worker.js \
           --compact true \
           --control-flow-flattening true \
           --control-flow-flattening-threshold 1 \
@@ -39,16 +31,11 @@ jobs:
           --string-array-threshold 1 \
           --transform-object-keys true \
           --unicode-escape-sequence true
-
-      - name: Commit changes
+      - name: Publish Result
+        if: ${{ success() }}
         run: |
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git config --local user.name "github-actions[bot]"
-          git add _worker.js
-          git commit -m "Obfuscate _worker.js" || echo "No changes to commit"
-
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.ref }}
+          git config --global user.name "Github Actions"
+          git config --global user.email "actions@github.com"
+          git add worker.js
+          git commit -m "Upload obfuscated worker"
+          git push origin main --force
