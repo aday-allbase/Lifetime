@@ -10,7 +10,6 @@ const wildcards = [
    'img.email2.vidio.com',
    'img.email3.vidio.com',
    'quiz.int.vidio.com',
-   'quiz.staging.vidio.com,
    'quiz.vidio.com',
    'support.vidio.com',
    'support.zoom.us',
