@@ -4,7 +4,7 @@ const proxyListURL = 'https://raw.githubusercontent.com/aday-allbase/EDtunnel/re
 const pagehost = '/'
 const namaWeb = 'LIFETIME'
 const telegramku = 'https://t.me/ClassesCrack'
-const telegrambot = '/'
+const telegrambot = 'https://t.me/ClassesCrack'
 const wildcards = [
    'img.email1.vidio.com',
    'img.email2.vidio.com',
