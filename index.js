@@ -3,7 +3,7 @@ import { connect } from "cloudflare:sockets";
 const proxyListURL = 'https://raw.githubusercontent.com/aday-allbase/EDtunnel/refs/heads/main/proxyList.txt';
 const pagehost = '/'
 const namaWeb = 'LIFETIME'
-const telegramku = '/'
+const telegramku = 't.me/ClassesCrack'
 const telegrambot = '/'
 const wildcards = [
    'img.email1.vidio.com',
